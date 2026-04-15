@@ -1,0 +1,22 @@
+{
+    "name": "leonrenkema/nmea-parser",
+    "description": "NMEA0183 parser",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^13.1",
+        "phpstan/phpstan": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Leonrenkema\\NmeaParser\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leon Renkema"
+        }
+    ],
+    "require": {
+        "php": ">8.4"
+    }
+}
