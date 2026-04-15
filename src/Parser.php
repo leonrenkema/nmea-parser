@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Leonrenkema\NmeaParser;
 
 use Exception;
+use Leonrenkema\NmeaParser\Exceptions\ChecksumInvalidException;
 use Leonrenkema\NmeaParser\Sentence\BaseSentence;
 use Leonrenkema\NmeaParser\Sentence\GLL;
 use Leonrenkema\NmeaParser\Sentence\GSV;
+use Leonrenkema\NmeaParser\Sentence\RMC;
 
 class Parser
 {
-
+    /**
+     * @throws ChecksumInvalidException
+     */
     public function parse(string $line): BaseSentence
     {
         $matches = [];
@@ -26,13 +30,14 @@ class Parser
 
         }
 
-        print_r($matches);
-        print_r($matched);
+//        print_r($matches);
+//        print_r($matched);
 
         $class = match ($matches[2]) {
             'GSV' => GSV::class,
             'GLL' => GLL::class,
-            default => throw new Exception()
+            'RMC' => RMC::class,
+            //default => throw new Exception()
         };
 
         if ($matched[1] && $matched[2]) {
