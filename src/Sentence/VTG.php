@@ -5,10 +5,17 @@ namespace Leonrenkema\NmeaParser\Sentence;
 
 use Leonrenkema\NmeaParser\Enums\Direction;
 use Leonrenkema\NmeaParser\Enums\FixStatus;
+use Leonrenkema\NmeaParser\Enums\ModeIndicator;
 use Leonrenkema\NmeaParser\Enums\SystemMode;
 
 class VTG extends BaseSentence
 {
+    public $track;
+    public $trackMadeGood;
+    public ModeIndicator $mode;
+    public float $speedInKnots;
+    public float $speedInKmh;
+
     protected string $frameRegex = '/^'
     .'([A-Z]{2}[A-Z]{3}),' //Equipment and trame type
     .'([0-9\.]*),T,' //True track made good (degrees)
@@ -20,5 +27,9 @@ class VTG extends BaseSentence
 
     protected function matchFields($matches): void
     {
+        $this->track = $matches[2];
+        $this->speedInKnots = floatval($matches[4]);
+        $this->speedInKmh = floatval($matches[5]);
+        $this->mode = ModeIndicator::tryFrom($matches[7]);
     }
 }
