@@ -19,30 +19,22 @@ class Parser
     public function parse(string $line): BaseSentence
     {
         $matches = [];
-        if (!preg_match('/^\$([A-Z]{2})([A-Z]{3}),/', $line, $matches)) {
+        if (!preg_match('/^\$((([A-Z]{2})([A-Z]{3})),.*)\*([A-Z0-9]{2})/', $line, $matches)) {
             throw new Exception(
                 'The detection of the frame type has failed.'
             );
         }
 
-        $matched = [];
-        if (!preg_match('/^\$(.*)\*([A-Z0-9]{2})/', $line, $matched)) {
-
-        }
-
-//        print_r($matches);
-//        print_r($matched);
-
-        $class = match ($matches[2]) {
+        $class = match ($matches[4]) {
             'GSV' => GSV::class,
             'GLL' => GLL::class,
             'RMC' => RMC::class,
             //default => throw new Exception()
         };
 
-        if ($matched[1] && $matched[2]) {
+        if ($matches[1] && $matches[5]) {
             $sentence = new $class();
-            $sentence->parse($matched[1], $matched[2]);
+            $sentence->parse($matches[1], $matches[5]);
             return $sentence;
         }
 
