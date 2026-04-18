@@ -2,16 +2,10 @@
 
 namespace Leonrenkema\Parser;
 
-use Leonrenkema\NmeaParser\Enums\Direction;
 use Leonrenkema\NmeaParser\Enums\FixStatus;
 use Leonrenkema\NmeaParser\Enums\ModeIndicator;
-use Leonrenkema\NmeaParser\Enums\SystemMode;
-use Leonrenkema\NmeaParser\Exceptions\ChecksumInvalidException;
 use Leonrenkema\NmeaParser\Parser;
 use Leonrenkema\NmeaParser\Sentence\GLL;
-use Leonrenkema\NmeaParser\Sentence\GSV;
-use Leonrenkema\NmeaParser\Sentence\RMC;
-use Leonrenkema\NmeaParser\Sentence\VTG;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -19,10 +13,10 @@ use PHPUnit\Framework\TestCase;
 class GLLTest extends TestCase
 {
     #[Test]
-    #[DataProvider("example")]
+    #[DataProvider('example')]
     public function test_example_sentences($line, $expected): void
     {
-        $parser = new Parser();
+        $parser = new Parser;
         /** @var GLL $sentence */
         $sentence = $parser->parse($line);
 
@@ -37,18 +31,18 @@ class GLLTest extends TestCase
         return [
             [
                 '$GPGLL,5158.34146,N,00553.71640,E,190003.00,A,A*68', [
-                'latitude' => '5158.34146',
-                'longitude' => '00553.71640',
-                'status' => FixStatus::Active,
-                'mode' => ModeIndicator::Autonomous
-            ]],
+                    'latitude' => '5158.34146',
+                    'longitude' => '00553.71640',
+                    'status' => FixStatus::Active,
+                    'mode' => ModeIndicator::Autonomous,
+                ]],
             [
                 '$GPGLL,,,,,162413.00,V,N*49', [
-                'longitude' => '',
-                'latitude' => '',
-                'status' => FixStatus::Void,
-                'mode' => ModeIndicator::NotValid
-            ]],
+                    'longitude' => '',
+                    'latitude' => '',
+                    'status' => FixStatus::Void,
+                    'mode' => ModeIndicator::NotValid,
+                ]],
         ];
     }
 }

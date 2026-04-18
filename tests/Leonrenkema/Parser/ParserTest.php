@@ -5,14 +5,12 @@ namespace Leonrenkema\Parser;
 use Leonrenkema\NmeaParser\Enums\Direction;
 use Leonrenkema\NmeaParser\Enums\FixStatus;
 use Leonrenkema\NmeaParser\Enums\ModeIndicator;
-use Leonrenkema\NmeaParser\Enums\SystemMode;
 use Leonrenkema\NmeaParser\Exceptions\ChecksumInvalidException;
 use Leonrenkema\NmeaParser\Parser;
 use Leonrenkema\NmeaParser\Sentence\GLL;
 use Leonrenkema\NmeaParser\Sentence\GSV;
 use Leonrenkema\NmeaParser\Sentence\RMC;
 use Leonrenkema\NmeaParser\Sentence\VTG;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +19,7 @@ class ParserTest extends TestCase
     #[Test]
     public function test(): void
     {
-        $parser = new Parser();
+        $parser = new Parser;
         /** @var GLL $sentence */
         $sentence = $parser->parse('$GPGLL,5158.34572,N,00553.72838,E,053949.00,A,A*60');
 
@@ -36,7 +34,7 @@ class ParserTest extends TestCase
     #[Test]
     public function test_gsv_sentence(): void
     {
-        $parser = new Parser();
+        $parser = new Parser;
         /** @var GSV $sentence */
         $sentence = $parser->parse('$GPGSV,3,1,11,03,03,111,00,04,15,270,00,06,01,010,00,13,06,292,00*74');
 
@@ -47,7 +45,7 @@ class ParserTest extends TestCase
     #[Test]
     public function test_rmc_sentence(): void
     {
-        $parser = new Parser();
+        $parser = new Parser;
         /** @var RMC $sentence */
         $sentence = $parser->parse('$GPRMC,053949.00,A,5158.34572,N,00553.72838,E,2.116,,150426,,,A*79');
 
@@ -62,7 +60,7 @@ class ParserTest extends TestCase
     #[Test]
     public function throws_an_error_when_checksum_not_valid(): void
     {
-        $parser = new Parser();
+        $parser = new Parser;
 
         $this->expectException(ChecksumInvalidException::class);
         $parser->parse('$GPGLL,5158.34572,N,00553.72838,E,053949.00,A,A*12');
@@ -71,7 +69,7 @@ class ParserTest extends TestCase
     #[Test]
     public function test_vtg_sentence(): void
     {
-        $parser = new Parser();
+        $parser = new Parser;
         /** @var VTG $sentence */
         $sentence = $parser->parse('$GPVTG,,T,,M,2.116,N,3.919,K,A*25');
 

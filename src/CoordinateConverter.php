@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leonrenkema\NmeaParser;
@@ -7,8 +8,11 @@ use Leonrenkema\NmeaParser\Enums\Direction;
 
 class CoordinateConverter
 {
-    function nmeaToDecimal(string $nmeaCoord, Direction $direction): float {
-        if (empty($nmeaCoord)) return 0.0;
+    public function nmeaToDecimal(string $nmeaCoord, Direction $direction): float
+    {
+        if (empty($nmeaCoord)) {
+            return 0.0;
+        }
 
         // NMEA format: (D)DDMM.MMMM
         // Latitude has 2 degree digits (DD), Longitude has 3 (DDD)
@@ -27,7 +31,8 @@ class CoordinateConverter
         return round($decimal, 6);
     }
 
-    function decimalToDMS($decimal): Coordinate {
+    public function decimalToDMS($decimal): Coordinate
+    {
         // 1. Degrees are the integer part
         $degrees = floor(abs($decimal));
 

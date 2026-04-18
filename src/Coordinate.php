@@ -12,8 +12,7 @@ readonly class Coordinate implements JsonSerializable
         public float $minutes,
         public float $seconds,
         public Direction $direction,
-    ) {
-    }
+    ) {}
 
     public function jsonSerialize(): mixed
     {

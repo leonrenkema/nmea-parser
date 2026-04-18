@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leonrenkema\NmeaParser\Sentence;
@@ -7,12 +8,12 @@ use Leonrenkema\NmeaParser\Exceptions\ChecksumInvalidException;
 
 abstract class BaseSentence
 {
-    protected string $frameRegex = "";
+    protected string $frameRegex = '';
 
     public string $constellation;
 
     /**
-     * @param array<string> $matches
+     * @param  array<string>  $matches
      */
     abstract protected function matchFields(array $matches): void;
 
@@ -41,7 +42,7 @@ abstract class BaseSentence
         }
 
         if ($checksum < 16) {
-            $checksum = '0' . dechex($checksum);
+            $checksum = '0'.dechex($checksum);
         } else {
             $checksum = dechex($checksum);
         }
