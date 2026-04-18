@@ -14,7 +14,7 @@ class GLLTest extends TestCase
 {
     #[Test]
     #[DataProvider('example')]
-    public function test_example_sentences($line, $expected): void
+    public function test_example_sentences(string $line, array $expected): void
     {
         $parser = new Parser;
         /** @var GLL $sentence */
