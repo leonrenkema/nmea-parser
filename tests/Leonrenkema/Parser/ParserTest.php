@@ -24,7 +24,7 @@ class ParserTest extends TestCase
         /** @var GLL $sentence */
         $sentence = $parser->parse('$GPGLL,5158.34572,N,00553.72838,E,053949.00,A,A*60');
 
-        $this->assertSame(SystemMode::Autonomous, $sentence->mode);
+        $this->assertSame(ModeIndicator::Autonomous, $sentence->mode);
         $this->assertSame('5158.34572', $sentence->latitude);
         $this->assertSame(Direction::North, $sentence->latitudeDirection);
         $this->assertSame('5158.34572', $sentence->latitude);
