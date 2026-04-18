@@ -12,19 +12,43 @@ use Leonrenkema\NmeaParser\Sentence\GLL;
 use Leonrenkema\NmeaParser\Sentence\GSV;
 use Leonrenkema\NmeaParser\Sentence\RMC;
 use Leonrenkema\NmeaParser\Sentence\VTG;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class GLLTest extends TestCase
 {
     #[Test]
-    public function test(): void
+    #[DataProvider("example")]
+    public function test_example_sentences($line, $expected): void
     {
         $parser = new Parser();
         /** @var GLL $sentence */
-        $sentence = $parser->parse('$GPGLL,,,,,182429.00,V,N*4E');
+        $sentence = $parser->parse($line);
 
-        $this->assertSame(ModeIndicator::NotValid, $sentence->mode);
-        $this->assertSame(FixStatus::Void, $sentence->status);
+        $this->assertSame($expected['longitude'], $sentence->longitude);
+        $this->assertSame($expected['latitude'], $sentence->latitude);
+        $this->assertSame($expected['status'], $sentence->status);
+        $this->assertSame($expected['mode'], $sentence->mode);
+    }
+
+    public static function example(): array
+    {
+        return [
+            [
+                '$GPGLL,5158.34146,N,00553.71640,E,190003.00,A,A*68', [
+                'latitude' => '5158.34146',
+                'longitude' => '00553.71640',
+                'status' => FixStatus::Active,
+                'mode' => ModeIndicator::Autonomous
+            ]],
+            [
+                '$GPGLL,,,,,162413.00,V,N*49', [
+                'longitude' => '',
+                'latitude' => '',
+                'status' => FixStatus::Void,
+                'mode' => ModeIndicator::NotValid
+            ]],
+        ];
     }
 }

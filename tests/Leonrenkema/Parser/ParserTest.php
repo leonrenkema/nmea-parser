@@ -12,6 +12,7 @@ use Leonrenkema\NmeaParser\Sentence\GLL;
 use Leonrenkema\NmeaParser\Sentence\GSV;
 use Leonrenkema\NmeaParser\Sentence\RMC;
 use Leonrenkema\NmeaParser\Sentence\VTG;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -78,5 +79,4 @@ class ParserTest extends TestCase
         $this->assertSame(2.116, $sentence->speedInKnots);
         $this->assertSame(3.919, $sentence->speedInKmh);
     }
-
 }
