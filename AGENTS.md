@@ -1,0 +1,1 @@
+- To execute php use the command `docker run -it -v ${PWD}:/app chialab/php-dev:8.5-fpm bash`

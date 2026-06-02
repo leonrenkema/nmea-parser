@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace Leonrenkema\NmeaParser\Sentence;
 
+/**
+ * ZDA - UTC time and date.
+ *
+ * Contains UTC time, day, month, year, and local time zone offset fields.
+ *
+ * @see https://w3.cs.jmu.edu/bernstdh/web/common/help/nmea-sentences.php
+ */
 class ZDA extends BaseSentence
 {
     public string $time;

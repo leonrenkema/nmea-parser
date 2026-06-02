@@ -2,6 +2,7 @@
 
 namespace Leonrenkema\Parser;
 
+use Leonrenkema\NmeaParser\Enums\Direction;
 use Leonrenkema\NmeaParser\Enums\FixStatus;
 use Leonrenkema\NmeaParser\Enums\ModeIndicator;
 use Leonrenkema\NmeaParser\Parser;
@@ -24,6 +25,20 @@ class GLLTest extends TestCase
         $this->assertSame($expected['latitude'], $sentence->latitude);
         $this->assertSame($expected['status'], $sentence->status);
         $this->assertSame($expected['mode'], $sentence->mode);
+    }
+
+    #[Test]
+    public function test_gll_sentence(): void
+    {
+        $parser = new Parser;
+        /** @var GLL $sentence */
+        $sentence = $parser->parse('$GPGLL,5158.34572,N,00553.72838,E,053949.00,A,A*60');
+
+        $this->assertSame(ModeIndicator::Autonomous, $sentence->mode);
+        $this->assertSame('5158.34572', $sentence->latitude);
+        $this->assertSame(Direction::North, $sentence->latitudeDirection);
+        $this->assertSame(Direction::East, $sentence->longitudeDirection);
+        $this->assertSame('00553.72838', $sentence->longitude);
     }
 
     public static function example(): array

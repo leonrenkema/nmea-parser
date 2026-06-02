@@ -7,6 +7,14 @@ namespace Leonrenkema\NmeaParser\Sentence;
 use Leonrenkema\NmeaParser\Enums\Direction;
 use Leonrenkema\NmeaParser\Enums\FixStatus;
 
+/**
+ * RMC - Recommended minimum specific GNSS data.
+ *
+ * Contains the essential GNSS navigation fix data, including UTC time, status,
+ * position, speed over ground, course, date, variation, and optional mode.
+ *
+ * @see https://www8.garmin.com/manuals/webhelp/gpsmap8400-8600/EN-US/GUID-891D6EC7-169E-4146-8279-8400626217D0.html
+ */
 class RMC extends BaseSentence
 {
     public FixStatus $status;

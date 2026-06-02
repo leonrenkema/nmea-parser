@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace Leonrenkema\NmeaParser\Sentence;
 
+/**
+ * GSV - Satellites in view.
+ *
+ * Contains the number of GSV messages, message sequence number, satellite
+ * count, and per-satellite visibility details when present.
+ *
+ * @see https://www8.garmin.com/manuals/webhelp/gpsmap8400-8600/EN-US/GUID-891D6EC7-169E-4146-8279-8400626217D0.html
+ */
 class GSV extends BaseSentence
 {
     public int $numberOfMessages;

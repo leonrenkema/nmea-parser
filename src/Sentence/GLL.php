@@ -8,6 +8,14 @@ use Leonrenkema\NmeaParser\Enums\Direction;
 use Leonrenkema\NmeaParser\Enums\FixStatus;
 use Leonrenkema\NmeaParser\Enums\ModeIndicator;
 
+/**
+ * GLL - Geographic position.
+ *
+ * Contains latitude, longitude, UTC time, fix status, and optional mode
+ * indicator for a geographic position report.
+ *
+ * @see https://www8.garmin.com/manuals/webhelp/gpsmap8400-8600/EN-US/GUID-891D6EC7-169E-4146-8279-8400626217D0.html
+ */
 class GLL extends BaseSentence
 {
     public string $latitude;
