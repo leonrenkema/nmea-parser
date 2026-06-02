@@ -11,6 +11,7 @@ use Leonrenkema\NmeaParser\Sentence\GLL;
 use Leonrenkema\NmeaParser\Sentence\GSV;
 use Leonrenkema\NmeaParser\Sentence\RMC;
 use Leonrenkema\NmeaParser\Sentence\VTG;
+use Leonrenkema\NmeaParser\Sentence\ZDA;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -76,5 +77,44 @@ class ParserTest extends TestCase
         $this->assertSame(ModeIndicator::Autonomous, $sentence->mode);
         $this->assertSame(2.116, $sentence->speedInKnots);
         $this->assertSame(3.919, $sentence->speedInKmh);
+    }
+
+    #[Test]
+    public function test_vtg_sentence2(): void
+    {
+        $parser = new Parser;
+        /** @var VTG $sentence */
+        $sentence = $parser->parse('$GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48');
+
+        $this->assertSame(54.7, $sentence->track);
+        $this->assertSame(5.5, $sentence->speedInKnots);
+        $this->assertSame(10.2, $sentence->speedInKmh);
+    }
+
+    #[Test]
+    public function test_zda_sentence(): void
+    {
+        $parser = new Parser;
+        /** @var ZDA $sentence */
+        $sentence = $parser->parse('$GPZDA,201530.00,04,07,2002,00,00*60');
+
+        $this->assertInstanceOf(ZDA::class, $sentence);
+        $this->assertSame('201530.00', $sentence->time);
+        $this->assertSame(4, $sentence->day);
+        $this->assertSame(7, $sentence->month);
+        $this->assertSame(2002, $sentence->year);
+        $this->assertSame(0, $sentence->localZoneHours);
+        $this->assertSame(0, $sentence->localZoneMinutes);
+    }
+
+    #[Test]
+    public function test_zda_sentence_with_local_zone_offset(): void
+    {
+        $parser = new Parser;
+        /** @var ZDA $sentence */
+        $sentence = $parser->parse('$GPZDA,201530.00,04,07,2002,-05,30*4B');
+
+        $this->assertSame(-5, $sentence->localZoneHours);
+        $this->assertSame(30, $sentence->localZoneMinutes);
     }
 }

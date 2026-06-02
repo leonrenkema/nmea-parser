@@ -12,7 +12,7 @@ class VTG extends BaseSentence
 
     public $trackMadeGood;
 
-    public ModeIndicator $mode;
+    public ?ModeIndicator $mode;
 
     public float $speedInKnots;
 
@@ -29,9 +29,15 @@ class VTG extends BaseSentence
 
     protected function matchFields($matches): void
     {
-        $this->track = $matches[2];
+        $this->track = floatval($matches[2]);
+
         $this->speedInKnots = floatval($matches[4]);
         $this->speedInKmh = floatval($matches[5]);
-        $this->mode = ModeIndicator::tryFrom($matches[7]);
+
+        if ($matches[7] !== null) {
+            $this->mode = ModeIndicator::tryFrom($matches[7]);
+        } else {
+            $this->mode = null;
+        }
     }
 }

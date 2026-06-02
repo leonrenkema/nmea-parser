@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leonrenkema\NmeaParser;
 
 use JsonSerializable;
@@ -14,7 +16,7 @@ readonly class Coordinate implements JsonSerializable
         public Direction $direction,
     ) {}
 
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return [
             'degrees' => $this->degrees,

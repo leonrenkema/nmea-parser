@@ -11,6 +11,7 @@ use Leonrenkema\NmeaParser\Sentence\GLL;
 use Leonrenkema\NmeaParser\Sentence\GSV;
 use Leonrenkema\NmeaParser\Sentence\RMC;
 use Leonrenkema\NmeaParser\Sentence\VTG;
+use Leonrenkema\NmeaParser\Sentence\ZDA;
 
 class Parser
 {
@@ -31,6 +32,7 @@ class Parser
             'GLL' => GLL::class,
             'RMC' => RMC::class,
             'VTG' => VTG::class,
+            'ZDA' => ZDA::class,
             // default => throw new Exception()
         };
 
