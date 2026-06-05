@@ -15,6 +15,9 @@ class GLLTest extends TestCase
 {
     #[Test]
     #[DataProvider('example')]
+    /**
+     * @param  array{latitude: string, longitude: string, status: FixStatus, mode: ModeIndicator}  $expected
+     */
     public function test_example_sentences(string $line, array $expected): void
     {
         $parser = new Parser;
@@ -41,6 +44,9 @@ class GLLTest extends TestCase
         $this->assertSame('00553.72838', $sentence->longitude);
     }
 
+    /**
+     * @return array<int, array{0: string, 1: array{latitude: string, longitude: string, status: FixStatus, mode: ModeIndicator}}>
+     */
     public static function example(): array
     {
         return [

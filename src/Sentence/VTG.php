@@ -16,9 +16,9 @@ use Leonrenkema\NmeaParser\Enums\ModeIndicator;
  */
 class VTG extends BaseSentence
 {
-    public $track;
+    public float $track;
 
-    public $trackMadeGood;
+    public float $trackMadeGood;
 
     public ?ModeIndicator $mode;
 
@@ -38,6 +38,7 @@ class VTG extends BaseSentence
     protected function matchFields($matches): void
     {
         $this->track = floatval($matches[2]);
+        $this->trackMadeGood = floatval($matches[3]);
 
         $this->speedInKnots = floatval($matches[4]);
         $this->speedInKmh = floatval($matches[5]);

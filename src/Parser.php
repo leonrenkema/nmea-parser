@@ -77,7 +77,7 @@ class Parser
             'WPL' => WPL::class,
             'XTE' => XTE::class,
             'ZDA' => ZDA::class,
-            // default => throw new Exception()
+            default => throw new Exception(sprintf('Unsupported sentence type "%s".', $matches[4])),
         };
 
         if ($matches[1] && $matches[5]) {
@@ -86,7 +86,6 @@ class Parser
 
             return $sentence;
         }
-
-        throw new Exception;
+        throw new Exception('The detection of the frame type has failed.');
     }
 }

@@ -16,6 +16,9 @@ readonly class Coordinate implements JsonSerializable
         public Direction $direction,
     ) {}
 
+    /**
+     * @return array{degrees: float, minutes: float, seconds: float, direction: Direction}
+     */
     public function jsonSerialize(): array
     {
         return [

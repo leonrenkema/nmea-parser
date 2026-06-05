@@ -20,7 +20,7 @@ class CoordinateConverter
         $degDigits = ($dotPos !== false) ? $dotPos - 2 : strlen($nmeaCoord) - 2;
 
         $degrees = (int) substr($nmeaCoord, 0, $degDigits);
-        $minutes = substr($nmeaCoord, $degDigits);
+        $minutes = (float) substr($nmeaCoord, $degDigits);
 
         $decimal = $degrees + ($minutes / 60);
 
@@ -31,7 +31,7 @@ class CoordinateConverter
         return round($decimal, 6);
     }
 
-    public function decimalToDMS($decimal): Coordinate
+    public function decimalToDMS(float $decimal, Direction $positiveDirection): Coordinate
     {
         // 1. Degrees are the integer part
         $degrees = floor(abs($decimal));
@@ -47,7 +47,16 @@ class CoordinateConverter
             $degrees,
             $minutes,
             round($seconds, 2),
-            Direction::North
+            $this->directionForDecimal($decimal, $positiveDirection),
         );
+    }
+
+    private function directionForDecimal(float $decimal, Direction $positiveDirection): Direction
+    {
+        return match ($positiveDirection) {
+            Direction::North => $decimal < 0 ? Direction::South : Direction::North,
+            Direction::East => $decimal < 0 ? Direction::West : Direction::East,
+            Direction::South, Direction::West => $positiveDirection,
+        };
     }
 }
